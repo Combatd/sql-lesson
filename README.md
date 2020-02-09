@@ -60,6 +60,17 @@
 
 
 
+### Query List
+
+- SELECT
+- FROM
+- JOIN
+- WHERE
+- GROUP BY
+- HAVING
+- ORDER BY
+- LIMIT
+
 ### DISTINCT 
 
 - used to return only different values from a column 
@@ -192,3 +203,113 @@
 
 ## Filtering, Functions, & Aggregation 
 
+- Aggregations & Group By
+
+  - Used to summarize the reuslts o a particular colum in the SELECT Statment
+  - Usually accompanied by <u>GROUP BY</u>
+
+- ```sql
+  SELECT SUM(total), COUNT(total), AVG(total), MIN(total), MAX(total)
+  From Sales 
+  
+  -- Count is the amount of rows 
+  -- MIN is minimum total
+  -- MAX is maximum total 
+  
+  -- you can use 'as' to rename columns temporarily 
+  
+  SELECT SUM(total) as total_sales
+  From Sales 
+  
+  -- you can use 'ROUND' to round numbers to a decimal places 
+  SELECT ROUND(AVG(total), 2) --round to 2 decimal places 
+  From Sales 
+  ```
+
+- Using <u>SUM</u>(<column>)
+
+  - ```sql
+    SELECT SUM(total) FROM sales
+    ```
+
+- Using <u>GROUP BY</u>
+
+  - ```sql
+    SELECT 	vendor, SUM(total) 
+    FROM 		sales
+    GROUP BY vendor 
+    ORDER BY SUM(total) desc -- or u could write 2 desc (2 being column 2)
+    -- give me the total sums of each vendor
+    ```
+
+- Using <u>COUNT</u>
+
+  ```sql
+  SELECT COUNT(*) FROM sales -- how manny rows are in this table? 
+  SELECT COUNT(category_name) FROM sales 
+  SELECT COUNT(DISTINCT category_name) FROM sales
+  ```
+
+
+
+### Case Statements
+
+- Case Statement Logic
+
+  - ```sql 
+    CASE WHEN [Value1_criteria] THEN 'Value1'
+    		 WHEN [Value2_criteria] THEN 'Value2'
+    		 WHEN [Value3_criteria] THEN 'Value3'
+    		 ELSE 'NonCriteria_Value'
+    		 END as Column_name
+    ```
+
+
+
+### Types of Joins
+
+- Now we'll examine the difference between the left join and the inner join
+- Left Join ~ Keeps all the records rom the first table (a), and appends the fields from the second table (b) where ther is a match.
+  - Returns NULL where there is not match
+- Inner Join ~ Only includes data where the comon value is in both tables 
+
+
+
+### UNION
+
+- Think of it as stacking tables on top of one another
+
+- Deletes duplicate rows 
+
+  - ```sql
+    SELECT *
+    FROM fy17p
+    
+    UNION
+    
+    SELECT * 
+    FROM	fy18p
+    ```
+
+  - UNION ALL
+
+    - does not remove duplicate rows while UNION does 
+
+-  Must have <u>same number of columns</u> 
+
+- Columns must have to carry the <u>same data type</u>
+
+
+
+### Common Table Expressions - Subqueries 
+
+- Sub query : query within a query
+
+  - ```sql
+    SELECT *
+    FROM 
+    (SELECT * FROM Stores Limit 5)
+    ```
+
+- Flexible simplified way to use subqueries
+- 
